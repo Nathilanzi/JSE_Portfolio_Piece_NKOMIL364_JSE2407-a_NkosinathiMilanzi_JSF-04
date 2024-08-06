@@ -101,3 +101,13 @@
     </nav>
   </header>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+const isNavbarHidden = ref(true);
+
+const toggleNavbar = () => {
+  isNavbarHidden.value = !isNavbarHidden.value;
+};
+</script>
