@@ -49,3 +49,26 @@ const fetchProducts = async () => {
   }
 };
 
+// Fetch categories on mount
+onMounted(() => {
+  fetchCategories();
+  fetchProducts();
+});
+
+// Watch for changes in selectedCategory and fetch products accordingly
+watch(selectedCategory, fetchProducts);
+
+// Handler for category change
+const onCategoryChange = () => {
+  // Triggered when user selects a different category
+  fetchProducts();
+};
+</script>
+
+<style scoped>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+</style>
