@@ -48,6 +48,10 @@ const isLoading = ref(true);
 const route = useRoute();
 const router = useRouter();
 
+/**
+ * Fetches the product categories from the API and sets the categories state.
+ */
+
 // Function to fetch products based on category
 const fetchProducts = async (category = '') => {
   isLoading.value = true;
@@ -65,6 +69,9 @@ const fetchProducts = async (category = '') => {
   }
 };
 
+/**
+ * Fetches the products based on the selected category from the API.
+ */
 // Function to fetch categories and initial products
 onMounted(async () => {
   try {

@@ -105,6 +105,10 @@
 <script setup>
 import { ref } from "vue";
 
+/**
+ * Toggles the visibility of the navbar.
+ */
+
 const isNavbarHidden = ref(true);
 
 const toggleNavbar = () => {

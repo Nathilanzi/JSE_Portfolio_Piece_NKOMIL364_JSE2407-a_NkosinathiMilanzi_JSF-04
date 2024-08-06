@@ -40,7 +40,9 @@ const props = defineProps({
 });
 
 const router = useRouter();
-
+/**
+ * Navigates to the product detail page.
+ */
 const navigateToDetail = () => {
   router.push({ name: 'ProductDetails', params: { id: props.product.id } });
 };
