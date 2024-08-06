@@ -11,3 +11,37 @@
     <button @click="handleAddToWishlist" class="add-button">Add to Wishlist</button>
   </div>
 </template>
+
+<script setup>
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+import { useCartAndWishlist } from '../UseCartAndWishlist';
+
+const {
+  addToCart,
+  addToWishlist
+} = useCartAndWishlist();
+
+// Function to handle adding to the cart
+const handleAddToCart = () => {
+  addToCart(product.value);
+};
+
+// Function to handle adding to the wishlist
+const handleAddToWishlist = () => {
+  addToWishlist(product.value);
+};
+
+const props = defineProps({
+  product: {
+    type: Object,
+    required: true
+  }
+});
+
+const router = useRouter();
+
+const navigateToDetail = () => {
+  router.push({ name: 'ProductDetails', params: { id: props.product.id } });
+};
+</script>
