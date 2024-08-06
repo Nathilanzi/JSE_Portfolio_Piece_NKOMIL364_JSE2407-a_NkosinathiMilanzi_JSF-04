@@ -29,3 +29,88 @@
     <LoadingSpinner v-if="isLoading" />
   </div>
 </template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import ProductCard from './ProductCard.vue';
+import LoadingSpinner from './LoadingSpinner.vue';
+import axios from 'axios';
+
+// State variables
+const products = ref([]);
+const categories = ref([]);
+const selectedCategory = ref('');
+const selectedSort = ref('default');
+const isLoading = ref(true);
+
+// Router and route
+const route = useRoute();
+const router = useRouter();
+
+// Function to fetch products based on category
+const fetchProducts = async (category = '') => {
+  isLoading.value = true;
+  try {
+    let url = 'https://fakestoreapi.com/products';
+    if (category) {
+      url += `/category/${category}`;
+    }
+    const response = await axios.get(url);
+    products.value = response.data;
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+// Function to fetch categories and initial products
+onMounted(async () => {
+  try {
+    const response = await axios.get('https://fakestoreapi.com/products/categories');
+    categories.value = ['All Categories', ...response.data];
+    await applyQueryParams();
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+  }
+});
+
+// Watcher for route changes to handle applied filters and sorting
+watch(route, () => {
+  applyQueryParams();
+});
+
+// Function to apply query parameters
+const applyQueryParams = () => {
+  const { category, sort } = route.query;
+  selectedCategory.value = category || '';
+  selectedSort.value = sort || 'default';
+  fetchProducts(selectedCategory.value);
+};
+
+// Computed property for sorted products
+const sortedProducts = computed(() => {
+  let sorted = [...products.value];
+  if (selectedSort.value === 'lowToHigh') {
+    sorted.sort((a, b) => a.price - b.price);
+  } else if (selectedSort.value === 'highToLow') {
+    sorted.sort((a, b) => b.price - a.price);
+  }
+  return sorted;
+});
+
+// Function to update filters and sorting
+const updateFiltersAndSort = () => {
+  router.push({ query: { category: selectedCategory.value, sort: selectedSort.value } });
+  fetchProducts(selectedCategory.value);
+};
+
+// Function to reset filters
+const resetFilters = () => {
+  selectedCategory.value = '';
+  selectedSort.value = 'default';
+  router.push({ query: {} });
+  fetchProducts();
+};
+</script>
