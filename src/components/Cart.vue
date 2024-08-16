@@ -26,10 +26,31 @@
 </template>
 
 <script setup>
-import { useCartAndWishlist } from '../UseCartAndWishlist'
+import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { jwtDecode } from 'jwt-decode'; 
+import { useCartStore } from '../Store/CartStore';
 
-// Access cart from the custom hook
-const { cart } = useCartAndWishlist();
+const router = useRouter();
+const cartStore = useCartStore();
+
+const isAuthenticated = ref(false);
+
+const getUserIdFromToken = () => {
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.sub;
+    } catch (error) {
+      console.error("Invalid token", error);
+      localStorage.removeItem('jwt');
+      router.push('/login');
+    }
+  }
+  return null;
+};
+
 </script>
 
 <style scoped>
