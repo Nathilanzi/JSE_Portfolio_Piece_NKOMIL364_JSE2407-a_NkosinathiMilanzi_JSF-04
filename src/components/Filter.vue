@@ -61,10 +61,18 @@ const fetchProducts = async () => {
   }
 };
 
-// Fetch categories on mount
-onMounted(() => {
-  fetchCategories();
-  fetchProducts();
+onMounted(async () => {
+  try {
+    const response = await axios.get('https://fakestoreapi.com/products/categories');
+    categories.value = ['All Categories', ...response.data];
+    applyQueryParams();
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+  }
+});
+
+watch(route, () => {
+  applyQueryParams();
 });
 
 // Watch for changes in selectedCategory and fetch products accordingly
