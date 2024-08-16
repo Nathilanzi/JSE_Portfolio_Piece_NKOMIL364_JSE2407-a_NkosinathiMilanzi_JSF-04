@@ -21,18 +21,22 @@
 
     <div class="grid">
       <ProductCard
-        v-for="product in products"
+        v-for="product in sortedProducts"
         :key="product.id"
         :product="product"
       />
     </div>
+    <LoadingSpinner v-if="isLoading" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import ProductCard from './ProductCard.vue';
+import LoadingSpinner from './LoadingSpinner.vue';
 import axios from 'axios';
+import { useCartStore } from '@/stores/cart';
 
 // Reactive state variables
 const categories = ref([]);
