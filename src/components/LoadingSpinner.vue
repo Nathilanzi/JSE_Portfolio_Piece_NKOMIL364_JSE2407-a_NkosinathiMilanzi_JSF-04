@@ -1,10 +1,18 @@
 <template>
   <div class="spinner-container">
     <div class="spinner"></div>
+    <LoadingSpinner v-if="isLoading" />
   </div>
 </template>
 
-
+<script setup>
+const props = defineProps({
+  isLoading: {
+    type: Boolean,
+    required: true,
+  },
+});
+</script>
 
 <style scoped>
 .spinner-container {
