@@ -51,6 +51,36 @@ const getUserIdFromToken = () => {
   return null;
 };
 
+const userId = ref(getUserIdFromToken());
+
+onMounted(() => {
+  if (userId.value) {
+    isAuthenticated.value = true;
+    cartStore.loadCart();
+  } else {
+    router.push('/login');
+  }
+});
+
+const updateCartQuantity = (item) => {
+  cartStore.updateCart({ ...item, quantity: newQuantity });
+};
+
+const removeItem = (itemId) => {
+  cartStore.removeItem(itemId);
+};
+
+const clearCart = () => {
+  cartStore.clearCart();
+  alert("Cart cleared successfully!");
+};
+
+const cartItems = cartStore.cartItems;
+const cartTotal = computed(() => {
+  return cartStore.cartItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0).toFixed(2);
+});
 </script>
 
 <style scoped>
