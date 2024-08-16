@@ -84,5 +84,52 @@ const cartTotal = computed(() => {
 </script>
 
 <style scoped>
-/* Add any styles for the cart here */
-</style> -->
+.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart-item img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+}
+
+.quantity input {
+  width: 60px;
+  margin-left: 10px;
+}
+
+.cart-total {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #37a9f6;
+}
+</style>
