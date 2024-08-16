@@ -34,3 +34,42 @@
     </div>
     <p v-else>You must be logged in to view this page.</p>
   </template>
+  
+  <script>
+  import { computed, onMounted, ref } from 'vue';
+  import { useComparisonStore } from '../Store/ComparisonStore';
+
+  
+  export default {
+    setup() {
+      const comparisonStore = useComparisonStore();
+    const isAuthenticated = ref(false);
+      const comparisonItems = computed(() => comparisonStore.comparisonItems);
+  
+      function removeItem(itemId) {
+        comparisonStore.removeItem(itemId);
+      }
+  
+      function clearComparison() {
+        comparisonStore.clearComparison();
+      }
+  
+      // Load comparison items when component is mounted
+      onMounted(() => {
+        const token = localStorage.getItem("jwt");
+      if (token) {
+        isAuthenticated.value = true;
+        comparisonStore.loadComparison();
+        }
+      });
+  
+      return {
+        isAuthenticated,
+        comparisonItems,
+        removeItem,
+        clearComparison,
+      };
+    },
+  };
+  </script>
+  
