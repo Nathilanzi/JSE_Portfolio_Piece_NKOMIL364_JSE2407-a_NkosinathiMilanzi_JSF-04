@@ -75,12 +75,38 @@ watch(route, () => {
   applyQueryParams();
 });
 
-// Watch for changes in selectedCategory and fetch products accordingly
-watch(selectedCategory, fetchProducts);
+const applyQueryParams = () => {
+  const { category, sort } = route.query;
+  selectedCategory.value = category || '';
+  selectedSort.value = sort || 'default';
+  fetchProducts(selectedCategory.value);
+};
 
-// Handler for category change
-const onCategoryChange = () => {
-  // Triggered when user selects a different category
+
+const applyFiltersAndSort = () => {
+  let filteredProducts = [...products.value];
+  if (selectedCategory.value) {
+    filteredProducts = filteredProducts.filter(product => product.category === selectedCategory.value);
+  }
+
+  if (selectedSort.value === 'lowToHigh') {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (selectedSort.value === 'highToLow') {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
+
+  sortedProducts.value = filteredProducts;
+};
+
+const updateFiltersAndSort = () => {
+  router.push({ query: { category: selectedCategory.value, sort: selectedSort.value } });
+  fetchProducts(selectedCategory.value);
+};
+
+const resetFilters = () => {
+  selectedCategory.value = '';
+  selectedSort.value = 'default';
+  router.push({ query: {} });
   fetchProducts();
 };
 </script>
