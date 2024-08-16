@@ -2,16 +2,18 @@
   <!-- <div id="app"> -->
     <!-- <Header /> -->
     <Layout />
+    <!-- <ComparisonPage /> -->
     <!-- <Filter/> -->
     <!-- <Wishlist /> -->
     <!-- <Cart /> -->
-    <ProductList />
+    <!-- <ProductList /> -->
     <!-- <LoadingSpinner /> -->
   <!-- </div> -->
 </template>
 
 <script setup>
 // import Header from './components/Header.vue';
+// import ComparisonPage from './components/ComparisonPage.vue';
 import Layout from './components/Layout.vue';
 // import Wishlist from './components/Wishlist.vue';
 // import Cart from './components/Cart.vue';
