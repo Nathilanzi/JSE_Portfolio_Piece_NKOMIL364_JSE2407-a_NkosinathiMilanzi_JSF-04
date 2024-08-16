@@ -73,3 +73,19 @@
   };
   </script>
   
+  <style scoped>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  img {
+    max-width: 100px;
+  }
+  button {
+    margin: 5px;
+  }
+  </style>
