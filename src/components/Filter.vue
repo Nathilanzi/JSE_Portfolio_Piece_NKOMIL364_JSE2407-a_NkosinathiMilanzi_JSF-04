@@ -38,31 +38,26 @@ import LoadingSpinner from './LoadingSpinner.vue';
 import axios from 'axios';
 import { useCartStore } from '@/stores/cart';
 
-// Reactive state variables
-const categories = ref([]);
 const products = ref([]);
-const selectedCategory = ref('All categories');
+const categories = ref([]);
+const selectedCategory = ref('');
+const selectedSort = ref('default');
+const isLoading = ref(true);
 
-// Fetch categories and initial products
-const fetchCategories = async () => {
-  try {
-    const { data } = await axios.get('https://fakestoreapi.com/products/categories');
-    categories.value = ['All categories', ...data];
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-  }
-};
+const route = useRoute();
+const router = useRouter();
+const cartStore = useCartStore();
 
 const fetchProducts = async () => {
+  isLoading.value = true;
   try {
-    let url = 'https://fakestoreapi.com/products';
-    if (selectedCategory.value !== 'All categories') {
-      url += `/category/${selectedCategory.value}`;
-    }
-    const { data } = await axios.get(url);
-    products.value = data;
+    const response = await axios.get('https://fakestoreapi.com/products');
+    products.value = response.data;
+    applyFiltersAndSort();
   } catch (error) {
     console.error('Failed to fetch products:', error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
