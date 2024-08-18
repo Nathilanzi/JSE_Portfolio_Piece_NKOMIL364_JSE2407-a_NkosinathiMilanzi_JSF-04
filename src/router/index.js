@@ -18,23 +18,44 @@ const routes = [
     path: '/product/:id',
     name: 'ProductDetails',
     component: ProductDetails,
+    props: true
   },
   {
     path: '/loading',
     name: 'LoadingSpinner',
     component: LoadingSpinner,
   },
-  // {
-  //   path: '/cart',
-  //   name: 'Cart',
-  //   component: Cart,
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/wishList',
+    name: 'wishList',
+    component: WishList,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/comparison',
+    name: 'Comparison',
+    component: Comparison,
+    meta: { requiresAuth: true }, 
+    // beforeEnter: (to, from, next) => {
+    //   const authStore = useAuthStore();
+    //   if (authStore.isAuthenticated) {
+    //     next();
+    //   } else {
+    //     next('/login'); // Redirect to login if not authenticated
+      }
+  //   },
   // },
-  // {
-  //   path: '/wishList',
-  //   name: 'wishList',
-  //   component: WishList,
-  // },
-  // Add other routes as needed
 ];
 
 const router = createRouter({
