@@ -30,7 +30,45 @@ const props = defineProps({
   }
 });
 
+const cartStore = useCartStore();
+
+const addToCart = () => {
+  cartStore.addItem({
+    ...props.product,
+    quantity: 1 // Default quantity to 1
+  });
+  alert(`${props.product.title} added to cart!`);
+};
+
+const wishlistStore = useWishListStore();
+
+const addToWishlist = () => {
+  wishlistStore.addItem({
+    ...props.product,
+    quantity: 1
+  })
+  alert(`${props.product.title} added to wishlist!`);
+};
+
+const comparisonStore = useComparisonStore();
+
+const isInComparison = computed(() => {
+  return comparisonStore.comparisonItems.some(item => item.id === props.product.id);
+});
+
+
+const toggleComparison = () => {
+  if (isInComparison.value) {
+    comparisonStore.removeItem(props.product.id);
+    alert(`${props.product.title} removed from comparison!`);
+  } else {
+    comparisonStore.addItem(props.product);
+    alert(`${props.product.title} added to comparison!`);
+  }
+};
+
 const router = useRouter();
+
 /**
  * Navigates to the product detail page.
  */
