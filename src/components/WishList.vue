@@ -36,6 +36,53 @@ const wishlistStore = useWishListStore();
 
 const isAuthenticated = ref(false);
 
+const getUserIdFromToken = () => {
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    try {
+      console.log("JWT Token:", token);
+      const decodedToken = jwtDecode(token);
+      console.log("Decoded Token:", decodedToken);
+      return decodedToken.sub;
+    } catch (error) {
+      console.error("Invalid token", error);
+      localStorage.removeItem('jwt');
+      router.push('/login');
+    }
+  }
+  return null;
+};
+
+const userId = ref(getUserIdFromToken());
+
+onMounted(() => {
+  if (userId.value) {
+    isAuthenticated.value = true;
+    wishlistStore.loadWishlist();
+  } else {
+    router.push('/login');
+  }
+});
+
+const updateWishlistItem = (item) => {
+  wishlistStore.addItem({ ...item, quantity: item.quantity });
+};
+
+const removeItem = (itemId) => {
+  wishlistStore.removeItem(itemId);
+};
+
+const clearWishlist = () => {
+  wishlistStore.clearWishlist();
+  alert("Wishlist cleared successfully!");
+};
+
+const wishlistItems = wishlistStore.wishlistItems;
+const wishlistTotal = computed(()=> {
+  return wishlistStore.wishlistItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0).toFixed(2);
+})
 </script>
 
 <style scoped>
