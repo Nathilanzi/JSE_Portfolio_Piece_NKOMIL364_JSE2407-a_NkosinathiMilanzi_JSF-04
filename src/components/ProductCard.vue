@@ -16,24 +16,12 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useCartAndWishlist } from '../UseCartAndWishlist';
+import { useCartStore } from '../Store/CartStore';
+import { useWishListStore } from '../Store/WishlistStore';
+import { useComparisonStore } from '../Store/ComparisonStore';
 
-const {
-  addToCart,
-  addToWishlist
-} = useCartAndWishlist();
-
-// Function to handle adding to the cart
-const handleAddToCart = () => {
-  addToCart(product.value);
-};
-
-// Function to handle adding to the wishlist
-const handleAddToWishlist = () => {
-  addToWishlist(product.value);
-};
 
 const props = defineProps({
   product: {
