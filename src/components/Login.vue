@@ -54,3 +54,46 @@
   
   const router = useRouter();
   
+  /**
+   * Toggles the visibility of the password field.
+   */
+  const togglePasswordVisibility = () => {
+    showPassword.value = !showPassword.value;
+  };
+  
+  /**
+   * Handles the login form submission.
+   */
+  const handleLogin = async () => {
+    if (!username.value || !password.value) {
+      loginError.value = 'Username and password are required.';
+      return;
+    }
+  
+    isSubmitting.value = true;
+    loginError.value = '';
+  
+    try {
+      const response = await axios.post('https://fakestoreapi.com/auth/login', {
+        username: username.value,
+        password: password.value,
+      }, {
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
+  
+      // Store the JWT token in localStorage
+      localStorage.setItem('jwt', response.data.token);
+  
+      // Redirect to the intended page or the homepage
+      const redirectTo = router.currentRoute.value.query.redirect || '/';
+      router.push(redirectTo);
+    } catch (error) {
+      loginError.value = 'Login failed. Please check your credentials and try again.';
+    } finally {
+      isSubmitting.value = false;
+    }
+  };
+  
+  </script>
