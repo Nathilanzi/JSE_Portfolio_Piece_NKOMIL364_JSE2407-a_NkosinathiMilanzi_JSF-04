@@ -93,15 +93,25 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useCartStore } from "../Store/CartStore";
+import { useWishListStore } from "../Store/WishlistStore";
+import { useComparisonStore } from "../Store/ComparisonStore";
 
-/**
- * Toggles the visibility of the navbar.
- */
-
+const router = useRouter();
+const isAuthenticated = ref(false);
 const isNavbarHidden = ref(true);
 
 const toggleNavbar = () => {
   isNavbarHidden.value = !isNavbarHidden.value;
 };
+
+const wishlistStore = useWishListStore();
+const wishlistCount = computed(() => wishlistStore.wishlistItems.length);
+
+const comparisonStore = useComparisonStore(); // Initialize the comparison store
+const comparisonCount = computed(() => comparisonStore.comparisonItems.length); 
+
+
 </script>
