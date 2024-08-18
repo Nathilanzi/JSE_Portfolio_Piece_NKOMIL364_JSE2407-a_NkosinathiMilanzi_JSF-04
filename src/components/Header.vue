@@ -114,4 +114,35 @@ const comparisonStore = useComparisonStore(); // Initialize the comparison store
 const comparisonCount = computed(() => comparisonStore.comparisonItems.length); 
 
 
+onMounted(() => {
+  wishlistStore.loadWishlist();
+  cartStore.loadCart();
+  comparisonStore.loadComparison();
+
+  // Check if the user is authenticated based on the token in localStorage
+  const token = localStorage.getItem("jwt");
+  if (token) {
+    isAuthenticated.value = true;
+  }
+});
+
+const cartStore = useCartStore();
+const cartCount = computed(() => cartStore.cartCount);
+
+onMounted(() => {
+  cartStore.loadCart();
+
+  // Check if the user is authenticated based on the token in localStorage
+  const token = localStorage.getItem("jwt");
+  if (token) {
+    isAuthenticated.value = true;
+  }
+});
+
+const handleLogout = () => {
+  localStorage.removeItem("jwt");
+  isAuthenticated.value = false;
+  router.push("/login");  // Redirect to login on logout
+  cartStore.clearCart();  // Clear the cart after logout
+};
 </script>
