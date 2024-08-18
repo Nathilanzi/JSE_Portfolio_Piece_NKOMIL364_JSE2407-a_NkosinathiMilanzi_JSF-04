@@ -42,7 +42,7 @@ const products = ref([]);
 const categories = ref([]);
 const selectedCategory = ref('');
 const selectedSort = ref('default');
-const isLoading = ref(true);
+const isLoading = ref(false);
 
 // Router and route
 const route = useRoute();
@@ -74,10 +74,11 @@ const fetchProducts = async (category = '') => {
  */
 // Function to fetch categories and initial products
 onMounted(async () => {
+  isLoading.value = true;
   try {
     const response = await axios.get('https://fakestoreapi.com/products/categories');
     categories.value = ['All Categories', ...response.data];
-    await applyQueryParams();
+    applyQueryParams();
   } catch (error) {
     console.error('Failed to fetch categories:', error);
   }
