@@ -26,10 +26,16 @@
 </template>
 
 <script setup>
-import { useCartAndWishlist } from '../UseCartAndWishlist';
+import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { jwtDecode } from 'jwt-decode'; 
+import { useWishListStore } from '../Store/WishlistStore';
 
-// Access wishlist from the custom hook
-const { wishlist } = useCartAndWishlist();
+const router = useRouter();
+const wishlistStore = useWishListStore();
+
+const isAuthenticated = ref(false);
+
 </script>
 
 <style scoped>
