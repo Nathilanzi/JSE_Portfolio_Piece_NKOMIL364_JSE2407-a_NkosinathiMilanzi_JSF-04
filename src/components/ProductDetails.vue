@@ -10,6 +10,7 @@
     <p>${{ product.price }}</p>
     <p>Ratings: {{ product.rating?.rate }}</p>
     <p>Reviews: {{ product.rating?.count }}</p>
+    <button @click="addToComparison">Add to Comparison</button>
     <button @click="goBack" class="back-button">Back to Products</button>
   </div>
 </template>
@@ -19,6 +20,9 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner.vue';
+import { useComparisonStore } from '../Store/ComparisonStore';
+
+const comparisonStore = useComparisonStore();
 
 const product = ref(null);
 const loading = ref(true); // Initially true to show spinner while loading
@@ -27,6 +31,17 @@ const router = useRouter();
 
 const goBack = () => {
   router.push({ path: '/', query: route.query });
+};
+
+const addToComparison = () => {
+  comparisonStore.addItem({
+    id: product.value.id,
+    title: product.value.title,
+    image: product.value.image,
+    description: product.value.description,
+    price: product.value.price,
+    rating: product.value.rating?.rate,
+  });
 };
 
 onMounted(async () => {
