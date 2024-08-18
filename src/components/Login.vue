@@ -40,3 +40,17 @@
     </div>
   </template>
   
+  <script setup>
+  import { ref } from 'vue';
+  import axios from 'axios';
+  import { useRouter } from 'vue-router';
+  
+  // State variables
+  const username = ref('');
+  const password = ref('');
+  const showPassword = ref(false);
+  const isSubmitting = ref(false);
+  const loginError = ref('');
+  
+  const router = useRouter();
+  
