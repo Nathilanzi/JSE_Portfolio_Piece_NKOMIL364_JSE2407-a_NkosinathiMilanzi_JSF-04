@@ -5,7 +5,7 @@
         <router-link to="/">
           <button class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/online-shop.png" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">SwiftCart</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-black">SwiftCart</span>
           </button>
         </router-link>
         <button
@@ -84,6 +84,7 @@
               >
                 Logout
               </button>
+              <Theme />
             </li>
           </ul>
         </div>
@@ -98,6 +99,7 @@ import { useRouter } from "vue-router";
 import { useCartStore } from "../Store/CartStore";
 import { useWishListStore } from "../Store/WishlistStore";
 import { useComparisonStore } from "../Store/ComparisonStore";
+import Theme from "./Theme.vue";
 
 const router = useRouter();
 const isAuthenticated = ref(false);
