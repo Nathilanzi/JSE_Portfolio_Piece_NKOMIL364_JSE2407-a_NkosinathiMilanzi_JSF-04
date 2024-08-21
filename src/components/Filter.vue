@@ -110,7 +110,7 @@ const resetFilters = () => {
   fetchProducts();
 };
 </script>
-
+<!-- 
 <style scoped>
 .filter-container {
   padding: 20px;
@@ -146,4 +146,13 @@ const resetFilters = () => {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
 }
-</style>
+
+.card {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+</style> -->
