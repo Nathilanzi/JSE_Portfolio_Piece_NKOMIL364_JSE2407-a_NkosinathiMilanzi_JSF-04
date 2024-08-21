@@ -16,3 +16,12 @@
     document.documentElement.setAttribute('data-theme', theme.value);
     localStorage.setItem('theme', theme.value);
   };
+  
+  watch(theme, (newTheme) => {
+    document.documentElement.setAttribute('data-theme', newTheme);
+  });
+  
+  onMounted(() => {
+    document.documentElement.setAttribute('data-theme', theme.value);
+  });
+  </script>
