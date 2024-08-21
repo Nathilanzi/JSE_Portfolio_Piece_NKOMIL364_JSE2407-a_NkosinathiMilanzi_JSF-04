@@ -2,14 +2,14 @@
   <div class="filter-container">
     <div class="filters">
       <div class="filter-group">
-        <label for="category-filter">Category:</label>
-        <select id="category-filter" v-model="selectedCategory" @change="updateFiltersAndSort">
+        <label for="category-filter" class="text-white">Category:</label>
+        <select id="category-filter" v-model="selectedCategory" @change="updateFiltersAndSort" >
           <option value="">All Categories</option>
           <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
         </select>
       </div>
       <div class="filter-group">
-        <label for="price-filter">Sort by Price:</label>
+        <label for="price-filter" class="text-white">Sort by Price:</label>
         <select id="price-filter" v-model="selectedSort" @change="updateFiltersAndSort">
           <option value="default">Default</option>
           <option value="lowToHigh">Low to High</option>
@@ -141,7 +141,7 @@ const resetFilters = () => {
 
 .reset-button {
   padding: 12px 24px;
-  background-color: #e74c3c;
+  background-color: #049a33;
   color: white;
   border: none;
   border-radius: 5px;
@@ -150,12 +150,22 @@ const resetFilters = () => {
 }
 
 .reset-button:hover {
-  background-color: #c0392b;
+  background-color: #014b07;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
+  background-color: bisque;
 }
+
+.card {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+}
+
 </style>
