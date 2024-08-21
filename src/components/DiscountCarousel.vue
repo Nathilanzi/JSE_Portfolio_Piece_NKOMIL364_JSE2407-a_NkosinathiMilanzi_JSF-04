@@ -21,13 +21,13 @@
           <div class="p-4">
             <h2 class="text-xl font-semibold mb-2">{{ product.title }}</h2>
             <p class="flex justify-between items-center mb-2">
-              <span class="text-gray-500 line-through">{{ formatPrice(product.price) }}</span>
+              <span class="text-black-500 line-through">{{ formatPrice(product.price) }}</span>
               <span class="text-red-600 font-bold">{{ formatPrice(product.discountedPrice) }}</span>
             </p>
             <p class="text-red-600 font-semibold mb-2">
               Save {{ product.discount }}%
             </p>
-            <p class="text-gray-500 text-sm">
+            <p class="text-black-500 text-sm">
               Sale ends on: {{ product.saleEndDate }}
             </p>
             <router-link :to="`/product/${product.id}`">
@@ -54,3 +54,33 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useDiscountStore } from '../Store/DiscountStore';
+
+const discountStore = useDiscountStore();
+const currentSlide = ref(0); // Track the current slide
+
+// Computed property for discounted products
+const discountedProducts = computed(() => discountStore.discountedProducts);
+
+// Format price utility function
+const formatPrice = (price) => `$${parseFloat(price).toFixed(2)}`;
+
+// Navigate to the next slide
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % discountedProducts.value.length;
+};
+
+// Navigate to the previous slide
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + discountedProducts.value.length) % discountedProducts.value.length;
+};
+
+// Call the function to apply discounts and fetch products on component mount
+onMounted(() => {
+  discountStore.applyRandomDiscounts();
+  console.log(discountStore.discountedProducts); // Debugging: Check the console
+});
+</script>
