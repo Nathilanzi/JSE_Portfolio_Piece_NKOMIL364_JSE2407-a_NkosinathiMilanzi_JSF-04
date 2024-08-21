@@ -8,3 +8,15 @@
       <p class="sale-end-date">Sale ends on: {{ saleEndDate.toLocaleDateString() }}</p>
     </div>
   </template>
+  
+  <script setup>
+  import { onMounted, ref } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { useDiscountStore } from '../Store/DiscountStore';
+  
+  const route = useRoute();
+  const discountStore = useDiscountStore();
+  
+  const product = ref(null);
+  const saleEndDate = ref(null);
+  
