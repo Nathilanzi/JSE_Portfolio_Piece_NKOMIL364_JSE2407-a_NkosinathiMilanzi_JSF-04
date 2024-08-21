@@ -25,3 +25,16 @@
     document.documentElement.setAttribute('data-theme', theme.value);
   });
   </script>
+  
+  <style scoped>
+  button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  </style>
+  
