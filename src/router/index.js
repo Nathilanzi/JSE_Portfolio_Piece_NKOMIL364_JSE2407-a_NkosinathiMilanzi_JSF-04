@@ -7,10 +7,15 @@ import WishList from '../components/WishList.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import Cart from '../components/Cart.vue';
 import Comparison from '../components/ComparisonPage.vue';
+// import DiscountCarousel from '../components/DiscountCarousel.vue';
+import DiscountDetails from '../components/DiscountDetails.vue';
+import Theme from '../components/Theme.vue';
+import Home from '../components/Home.vue';
 
 const routes = [
+ 
   {
-    path: '/',
+    path: '/ProductList',
     name: 'ProductList',
     component: ProductList,
   },
@@ -24,6 +29,7 @@ const routes = [
     path: '/loading',
     name: 'LoadingSpinner',
     component: LoadingSpinner,
+    props: 'isLoading',
   },
   {
     path: '/login',
@@ -42,6 +48,25 @@ const routes = [
     component: WishList,
     meta: { requiresAuth: true },
   },
+  // { path: '/', 
+  //   name: 'DiscountCarousel',
+  //   component: DiscountCarousel
+  //  },
+  
+  { path: '/product/:id', 
+    name: 'DiscountDetails', 
+    component: DiscountDetails 
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
+    {
+      path: '/Theme',
+      name: 'Theme',
+      component: Theme
+    },
   {
     path: '/comparison',
     name: 'Comparison',
@@ -56,6 +81,7 @@ const routes = [
       }
   //   },
   // },
+
 ];
 
 const router = createRouter({
