@@ -9,7 +9,7 @@
         <img :src="item.image" :alt="item.title" />
         <div class="item-details">
           <h3>{{ item.title }}</h3>
-          <p>${{ item.price | currency }}</p>
+          <p>${{ item.price }}</p>
           <div class="quantity">
             <label for="quantity">Quantity:</label>
             <input type="number" v-model.number="item.quantity" min="1" @change="updateCartQuantity(item)" />
@@ -63,11 +63,12 @@ onMounted(() => {
 });
 
 const updateCartQuantity = (item) => {
-  cartStore.updateCart({ ...item, quantity: newQuantity });
+  cartStore.updateCart({ item});
 };
 
 const removeItem = (itemId) => {
   cartStore.removeItem(itemId);
+  console.log(cartItems)
 };
 
 const clearCart = () => {
@@ -77,10 +78,15 @@ const clearCart = () => {
 
 const cartItems = cartStore.cartItems;
 const cartTotal = computed(() => {
-  return cartStore.cartItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0).toFixed(2);
+  return cartStore.cartItems
+    .reduce((total, item) => {
+      const price = item.price || 0; // default to 0 if price is undefined
+      const quantity = item.quantity || 1; // default to 1 if quantity is undefined
+      return total + price * quantity;
+    }, 0)
+    .toFixed(2);
 });
+
 </script>
 
 <style scoped>
