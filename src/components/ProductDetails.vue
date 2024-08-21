@@ -57,6 +57,27 @@ const addToComparison = () => {
   });
 };
 
+const addToWishlist = () => {
+  wishlistStore.addItem({
+    id: product.value.id,
+    title: product.value.title,
+    image: product.value.image,
+    price: product.value.price,
+  });
+  alert(`${product.value.title} has been added to your wishlist!`);
+};
+
+const addToCart = () => {
+  cartStore.addItem({
+    id: product.value.id,
+    title: product.value.title,
+    image: product.value.image,
+    price: product.value.price,
+    quantity: 1, // Default quantity
+  });
+  alert(`${product.value.title} has been added to your cart!`);
+};
+
 onMounted(async () => {
   const productId = route.params.id;
   try {
