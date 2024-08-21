@@ -7,9 +7,14 @@
     <h1>{{ product.title }}</h1>
     <p>{{ product.category }}</p>
     <p>{{ product.description }}</p>
-    <p>${{ product.price }}</p>
+    <p class="original-price">${{ product.price.toFixed(2) }}</p>
+    <p class="discounted-price">${{ product.discountedPrice }}</p>
+    <p class="discount-percentage">-{{ product.discount }}%</p>
+    <p class="sale-end-date">Sale ends on: {{ saleEndDate }}</p>
     <p>Ratings: {{ product.rating?.rate }}</p>
     <p>Reviews: {{ product.rating?.count }}</p>
+    <button @click="addToCart">Add to Cart</button>
+    <button @click="addToWishlist">Add to Wishlist</button>
     <button @click="addToComparison">Add to Comparison</button>
     <button @click="goBack" class="back-button">Back to Products</button>
   </div>
