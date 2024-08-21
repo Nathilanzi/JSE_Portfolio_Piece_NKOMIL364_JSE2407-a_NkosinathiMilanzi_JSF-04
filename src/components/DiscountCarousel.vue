@@ -84,3 +84,67 @@ onMounted(() => {
   console.log(discountStore.discountedProducts); // Debugging: Check the console
 });
 </script>
+
+<style scoped>
+.discount-carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  background-color: #ff6b6b;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  position: relative;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.carousel-nav.prev {
+  left: 10px;
+}
+
+.carousel-nav.next {
+  right: 10px;
+}
+
+.carousel-item {
+  width: 100%;
+  text-align: center;
+}
+
+/* Dark mode styles */
+.dark-mode .carousel-item {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .discounted-price {
+  color: #ff6b6b;
+}
+</style>
