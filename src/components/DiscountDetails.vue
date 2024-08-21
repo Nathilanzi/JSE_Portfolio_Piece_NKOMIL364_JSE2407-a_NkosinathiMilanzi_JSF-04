@@ -20,3 +20,9 @@
   const product = ref(null);
   const saleEndDate = ref(null);
   
+  onMounted(() => {
+    const productId = route.params.id;
+    product.value = discountStore.discountedProducts.find(p => p.id === productId);
+    saleEndDate.value = discountStore.saleEndDate;
+  });
+  </script>
