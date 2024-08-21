@@ -88,5 +88,14 @@
   button {
     margin: 5px;
   }
+
+  .card {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+}
+
   </style>
   
