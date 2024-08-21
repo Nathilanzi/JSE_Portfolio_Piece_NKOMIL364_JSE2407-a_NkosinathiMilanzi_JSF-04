@@ -1,4 +1,5 @@
 Vue.js E-Commerce Application README
+Deployment website : https://jse-portfolio-piece-nkomil-364-jse-2407-a-nathilanzis-projects.vercel.app/ 
 Overview
 This project is a Vue.js e-commerce application designed to provide a rich and dynamic shopping experience. The application features a comprehensive shopping cart, product comparison, a discount carousel, product filtering, and user authentication. Additionally, it includes modern enhancements like light and dark mode themes and a sticky navigation header for an improved user experience.
 
