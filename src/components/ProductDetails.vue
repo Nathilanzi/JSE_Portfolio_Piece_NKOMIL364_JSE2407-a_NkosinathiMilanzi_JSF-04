@@ -78,6 +78,12 @@ const addToCart = () => {
   alert(`${product.value.title} has been added to your cart!`);
 };
 
+onMounted(() => {
+  const productId = route.params.id;
+  product.value = DiscountStore.discountedProducts.find(p => p.id == productId);
+  saleEndDate.value = DiscountStore.saleEndDate;
+});
+
 onMounted(async () => {
   const productId = route.params.id;
   try {
@@ -86,7 +92,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Failed to fetch product details:', error);
   } finally {
-    loading.value = false; // Set loading to false after data fetch is complete
+    loading.value = false;
   }
 });
 </script>
