@@ -28,16 +28,11 @@ export const useCartStore = defineStore('cart', () => {
     saveCart();
   };
 
-  const saveCart = () => {
-    if (userId) {
-      localStorage.setItem(`cart-${userId}`, JSON.stringify(cartItems.value));
-    }
-  };
-
   const updateCart = (item) => {
     const existingItem = cartItems.value.find(i => i.id === item.id);
     if (existingItem) {
-      Object.assign(existingItem, item);
+      existingItem.quantity = item.quantity; // Update quantity
+      saveCart(); // Save changes to localStorage immediately
     }
   };
 
@@ -59,5 +54,11 @@ export const useCartStore = defineStore('cart', () => {
     saveCart();
   };
 
-  return { cartItems, cartCount, addItem, clearCart, removeItem, loadCart, updateCart };
+  const saveCart = () => {
+    if (userId) {
+      localStorage.setItem(`cart-${userId}`, JSON.stringify(cartItems.value));
+    }
+  };
+
+  return { cartItems, cartCount, addItem, updateCart, loadCart, clearCart, removeItem };
 });
