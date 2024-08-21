@@ -127,7 +127,7 @@ const cartTotal = computed(() => {
 }
 
 button {
-  background-color: #3498db;
+  background-color: #d61414;
   color: white;
   border: none;
   padding: 10px;
@@ -136,6 +136,14 @@ button {
 }
 
 button:hover {
-  background-color: #37a9f6;
+  background-color: #800606;
+}
+
+.card {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
 }
 </style>
