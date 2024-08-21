@@ -25,12 +25,20 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner.vue';
+import { useCartStore } from '../Store/CartStore';
+import { useWishListStore } from '../Store/WishlistStore';
 import { useComparisonStore } from '../Store/ComparisonStore';
+import { useDiscountStore } from '../Store/DiscountStore';
+
 
 const comparisonStore = useComparisonStore();
+const wishlistStore = useWishListStore();
+const cartStore = useCartStore();
+const DiscountStore = useDiscountStore();
 
 const product = ref(null);
-const loading = ref(true); // Initially true to show spinner while loading
+const saleEndDate = ref(null);
+const loading = ref(true);
 const route = useRoute();
 const router = useRouter();
 
