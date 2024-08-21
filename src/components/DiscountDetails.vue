@@ -26,3 +26,25 @@
     saleEndDate.value = discountStore.saleEndDate;
   });
   </script>
+  
+  <style scoped>
+  .original-price {
+    color: black;
+    text-decoration: line-through;
+    
+  }
+  
+  .discounted-price {
+    color: red;
+  }
+  
+  .discount-percentage {
+    font-weight: bold;
+  }
+  
+  .sale-end-date {
+    margin-top: 10px;
+    color: black;
+  }
+  </style>
+  
