@@ -9,12 +9,13 @@
         <img :src="item.image" :alt="item.title" />
         <div class="item-details">
           <h3>{{ item.title }}</h3>
-          <p>${{ item.price | currency }}</p>
+          <p>${{ item.price }}</p>
         </div>
         <div class="quantity">
             <label for="quantity">Quantity:</label>
             <input type="number" v-model.number="item.quantity" min="1" @change="updateWishlisQuantity(item)" />
           </div>
+          <button @click="addToCart(item)">Add to Cart</button>
         <button @click="removeItem(item.id)">Remove</button>
       </div>
       <div class="wishlist-total">
@@ -30,9 +31,11 @@ import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { jwtDecode } from 'jwt-decode'; 
 import { useWishListStore } from '../Store/WishlistStore';
+import { useCartStore } from '../Store/CartStore';
 
 const router = useRouter();
 const wishlistStore = useWishListStore();
+const cartStore = useCartStore();
 
 const isAuthenticated = ref(false);
 
@@ -40,9 +43,7 @@ const getUserIdFromToken = () => {
   const token = localStorage.getItem('jwt');
   if (token) {
     try {
-      console.log("JWT Token:", token);
       const decodedToken = jwtDecode(token);
-      console.log("Decoded Token:", decodedToken);
       return decodedToken.sub;
     } catch (error) {
       console.error("Invalid token", error);
@@ -59,13 +60,19 @@ onMounted(() => {
   if (userId.value) {
     isAuthenticated.value = true;
     wishlistStore.loadWishlist();
+    cartStore.loadCart(); 
   } else {
     router.push('/login');
   }
 });
 
+const addToCart = (item) => {
+  cartStore.addItem(item);  // Add the item to the cart
+  alert(`${item.title} has been added to your cart!`);
+};
+
 const updateWishlistItem = (item) => {
-  wishlistStore.addItem({ ...item, quantity: item.quantity });
+  wishlistStore.updateWishlist({ ...item, quantity: item.quantity });
 };
 
 const removeItem = (itemId) => {
