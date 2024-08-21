@@ -130,4 +130,29 @@ onMounted(async () => {
 .back-button:hover {
   background-color: #2980b9;
 }
+
+.card {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.original-price {
+  text-decoration: line-through;
+}
+
+.discounted-price {
+  color: red;
+}
+
+.discount-percentage {
+  font-weight: bold;
+}
+
+.sale-end-date {
+  margin-top: 10px;
+}
+
 </style>
